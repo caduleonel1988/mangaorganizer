@@ -9,33 +9,45 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:url value="/" var="contextPath"/>
-<c:url value="/resources/js" var="jsPath" />
-<c:url value="/resources/css" var="cssPath" />
-<script type="text/javascript" src="${jsPath}/jquery.js"></script>
-<script type="text/javascript" src="${jsPath}/bootstrap.min.js"></script>
-<link rel="stylesheet" href="${cssPath}/bootstrap.min.css">
-<link rel="stylesheet" href="${cssPath}/bootstrap-theme.min.css">
+<script type="text/javascript" src="${contextPath}resources/js/jquery.js"></script>
+<script type="text/javascript" src="${contextPath}resources/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${contextPath}resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="${contextPath}resources/css/bootstrap-theme.min.css">
 </head>
 <body>
 	
 	<div class="container">
-		<h2>Login - Manga Organizer</h2>
-		<form:form servletRelativeAction="/login" method="POST">
-			<div class="form-group">
-				<label >e-mail</label>
-				<input type="text" name="username" class="form-control"/>
+        <div class="row">
+			<div class="col-md-5 mx-auto mt-5">
+				<div id="first">
+					<div class="myform form ">
+						 <div class="logo mb-3">
+							 <div class="col-md-12 text-center">
+								 <h2 class="mt-5 mb-5">Login - Manga Organizer</h2>
+							 </div>
+						</div>
+                   		<form:form servletRelativeAction="/login" method="post" name="login">
+                         	<div class="form-group">
+                            	<label for="exampleInputEmail1">Email</label>
+                              	<input type="email" name="username"  class="form-control" aria-describedby="emailHelp" />
+                           </div>
+                           <div class="form-group">
+                           		<label for="exampleInputEmail1">Password</label>
+                              	<input type="password" name="password"   class="form-control" aria-describedby="emailHelp"  />
+                           </div>
+                           <div class="form-group">
+                              <p class="text-center">By signing up you accept our <a href="#">Terms Of Use</a></p>
+                           </div>
+                           <div class="col-md-12 text-center ">
+                              <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
+                           </div>
+                           
+                        </form:form>
+					</div>
+				</div>
 			</div>
-		
-			<div class="form-group">
-				<label>Senha</label>
-				<input type="password" name="password" class="form-control"/>
-			</div>
-		
-			<div class="form-group">
-				<button type="submit" class="btn btn-primary" >Login</button>
-			</div>
-		</form:form>
-	</div>
+		</div>
+	</div> 
 
 </body>
 </html>
