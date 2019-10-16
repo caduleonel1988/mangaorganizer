@@ -53,15 +53,14 @@ public class UsersController {
 	@CacheEvict(value = "users", allEntries = true)
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView add(@Valid User user, BindingResult result, RedirectAttributes redirectAttributes) {
-		if (result.hasErrors()) {
-
-			return form(user);
-		}
-
-		UserAccount userAccount = new UserAccount(user);
-		user.setAccount(userAccount);
-		userDAO.add(user);
-		redirectAttributes.addFlashAttribute("message", "Usuário Cadastrado com Sucesso!");
+			if (result.hasErrors()) {
+				return form(user);
+			}
+		
+			UserAccount userAccount = new UserAccount(user);
+			user.setAccount(userAccount);
+			userDAO.add(user);
+			redirectAttributes.addFlashAttribute("message", "Usuário Cadastrado com Sucesso!");
 		
 		return new ModelAndView("redirect:/users");
 	}
@@ -71,7 +70,7 @@ public class UsersController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView modelAndView = new ModelAndView("users/list");
-		List<User> users = userDAO.getAllUsers();
+		List<User> users = userDAO.getUsers();
 		modelAndView.addObject("users", users);
 		
 		return modelAndView;

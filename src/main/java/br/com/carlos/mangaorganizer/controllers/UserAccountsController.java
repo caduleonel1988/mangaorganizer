@@ -3,17 +3,21 @@ package br.com.carlos.mangaorganizer.controllers;
 import java.util.Set;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.carlos.mangaorganizer.models.Manga;
 import br.com.carlos.mangaorganizer.models.User;
@@ -22,6 +26,7 @@ import br.com.carlos.mangaorganizer.models.UserManga;
 import br.com.carlos.mangaorganizer.models.daos.MangaDAO;
 import br.com.carlos.mangaorganizer.models.daos.UserDAO;
 import br.com.carlos.mangaorganizer.models.daos.UserMangaDAO;
+import br.com.carlos.mangaorganizer.validations.UserValidation;
 
 @Transactional
 @Controller
@@ -37,6 +42,11 @@ public class UserAccountsController {
 	
 	@Autowired
 	private UserMangaDAO userMangaDAO;
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.addValidators(new UserValidation());
+	}
 	
 	//TODO REFATORAR PARA COLOCAR CACHE NO DETALHE. ATENÇÃO POIS É UM METODO QUE UTILIZA A CONTA DO USUARIO E OS MANGAS DELE
 	/**
@@ -66,14 +76,14 @@ public class UserAccountsController {
 	}
 	
 	@RequestMapping(value = "/manga/add", method = RequestMethod.POST)
-	public ModelAndView addManga(Integer mangaId, User user, RedirectAttributes redirectAttributes) {
+	public ModelAndView addManga(Integer mangaId, User user) {
 		ModelAndView modelAndView = new ModelAndView("redirect:/accounts/detail/{email}") ;
 		UserManga userManga = createUserManga(mangaId);
 		userMangaDAO.add(userManga);
 
 		user = user.getSessionUser();
 		UserAccount userAccount = user.getAccount();
-		userDAO.modify(userAccount, userManga);
+		userDAO.modifyMangaList(userAccount, userManga);
 		
 		modelAndView.addObject("email", user.getEmail());
 		return modelAndView;
@@ -91,6 +101,21 @@ public class UserAccountsController {
 		UserManga userManga = new UserManga(manga); 
 		
 		return userManga;
+	}
+	
+	@CacheEvict(value = "users", allEntries = true)
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView modifyAccount(@Valid User user, BindingResult result) {
+		ModelAndView modelAndView = new ModelAndView("redirect:/users");
+		if (result.hasErrors()) {
+			return detail(user.getEmail(), user);
+		}
+		
+		userDAO.modify(user);
+		
+		return modelAndView;
+				
+				
 	}
 
 }

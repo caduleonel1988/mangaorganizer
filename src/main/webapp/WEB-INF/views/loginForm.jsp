@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	
 <!DOCTYPE html>
@@ -26,7 +26,7 @@
 								 <h2 class="mt-5 mb-5">Login - Manga Organizer</h2>
 							 </div>
 						</div>
-                   		<form:form servletRelativeAction="/login" method="post" name="login">
+                   		<sf:form servletRelativeAction="/login" method="post" name="login">
                          	<div class="form-group">
                             	<label for="exampleInputEmail1">Email</label>
                               	<input type="email" name="username"  class="form-control" aria-describedby="emailHelp" />
@@ -42,7 +42,7 @@
                               <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
                            </div>
                            
-                        </form:form>
+                        </sf:form>
 					</div>
 				</div>
 			</div>

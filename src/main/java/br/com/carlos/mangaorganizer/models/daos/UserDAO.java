@@ -14,9 +14,8 @@ public interface UserDAO extends UserDetailsService {
 	void add(User user);
 	void remove(String email);
 	void modify(User user);
-	void modify(UserAccount account, UserManga userManga);
+	void modifyMangaList(UserAccount account, UserManga userManga);
 	User find(String email);
-	List<User> getAllUsers();
-	List<User> getUsers(String name, Integer email);
+	List<User> getUsers();
 
 }
