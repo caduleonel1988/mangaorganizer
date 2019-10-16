@@ -19,8 +19,7 @@ public class MangaDAOHibernate implements MangaDAO {
 
 	@Override
 	public void modify(Manga manga) {
-		// TODO Auto-generated method stub
-		
+		manager.merge(manga);
 	}
 
 	@Override
@@ -42,7 +41,7 @@ public class MangaDAOHibernate implements MangaDAO {
 	}
 
 	@Override
-	public List<Manga> getAllMangas() {
+	public List<Manga> getMangas() {
 		return manager.createQuery("from Manga", Manga.class).getResultList() ;
 	}
 

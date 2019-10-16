@@ -10,7 +10,7 @@ public interface MangaDAO {
 	void add(Manga manga);
 	void remove(Integer id);
 	Manga find(Integer id);
-	List<Manga> getAllMangas();
+	List<Manga> getMangas();
 	
 
 }

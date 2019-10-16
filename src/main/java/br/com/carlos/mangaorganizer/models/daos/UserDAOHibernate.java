@@ -63,7 +63,8 @@ public class UserDAOHibernate implements UserDAO {
 		manager.merge(user);
 
 	}
-
+	
+	@Override
 	public void modifyMangaList(UserAccount account, UserManga userManga) {
 		account = manager.find(UserAccount.class, account.getId());
 		account.add(userManga);

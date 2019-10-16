@@ -104,18 +104,15 @@ public class UserAccountsController {
 	}
 	
 	@CacheEvict(value = "users", allEntries = true)
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value="/modify", method = RequestMethod.POST)
 	public ModelAndView modifyAccount(@Valid User user, BindingResult result) {
 		ModelAndView modelAndView = new ModelAndView("redirect:/users");
 		if (result.hasErrors()) {
 			return detail(user.getEmail(), user);
 		}
-		
 		userDAO.modify(user);
 		
 		return modelAndView;
-				
-				
 	}
 
 }

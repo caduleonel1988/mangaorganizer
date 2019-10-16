@@ -61,7 +61,7 @@ public class MangasController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView modelAndView = new ModelAndView("mangas/list");
-		List<Manga> mangas = mangaDAO.getAllMangas();
+		List<Manga> mangas = mangaDAO.getMangas();
 		modelAndView.addObject("mangas", mangas);
 
 		return modelAndView;
@@ -72,6 +72,19 @@ public class MangasController {
 		ModelAndView modelAndView = new ModelAndView("mangas/detail");
 		Manga manga = mangaDAO.find(id);
 		modelAndView.addObject("manga", manga);
+		modelAndView.addObject("mangaStatus", Status.values());
+		
+		return modelAndView;
+	}
+	
+	@CacheEvict(value = "mangasList", allEntries = true)
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public ModelAndView modifyManga(@Valid Manga manga, BindingResult result) {
+		ModelAndView modelAndView = new ModelAndView("redirect:/mangas");
+		if (result.hasErrors()) {
+			return detail(manga.getId());
+		}
+		mangaDAO.modify(manga);
 		
 		return modelAndView;
 	}
