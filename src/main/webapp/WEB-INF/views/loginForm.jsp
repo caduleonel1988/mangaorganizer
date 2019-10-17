@@ -28,11 +28,11 @@
 						</div>
                    		<sf:form servletRelativeAction="/login" method="post" name="login">
                          	<div class="form-group">
-                            	<label for="exampleInputEmail1">Email</label>
+                            	<label >Email</label>
                               	<input type="email" name="username"  class="form-control" aria-describedby="emailHelp" />
                            </div>
                            <div class="form-group">
-                           		<label for="exampleInputEmail1">Password</label>
+                           		<label >Password</label>
                               	<input type="password" name="password"   class="form-control" aria-describedby="emailHelp"  />
                            </div>
                            <div class="form-group">

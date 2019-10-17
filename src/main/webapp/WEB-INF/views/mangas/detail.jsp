@@ -11,11 +11,12 @@
 <fmt:message key="manga.detail.page.title" var="pageTitle"/>
 <fmt:message key="manga.button.addtocollection"  var="buttonAddToCollection"/>
 <fmt:message key="manga.button.modify"  var="buttonModify"/>
+<fmt:message key="manga.button.remove"  var="buttonRemove"/>
 
 <security:authorize access="hasRole('ROLE_ADMIN')" var="hasRole"/>
 
 <tags:pageTemplate title="">
-
+	
 	<jsp:body>
 		<h2 class="text-center mt-4 mb-5">${manga.title}</h2>
 		<div class="container my-4 col-md-8 offset-md-4">

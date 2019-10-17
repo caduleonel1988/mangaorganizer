@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -23,6 +24,7 @@ public class UserManga implements Serializable{
 	private String notes;
 	
 	@ManyToOne
+	@JoinColumn(name = "manga_id")
 	private Manga manga;
 	private Integer lastChapter = 0;
 

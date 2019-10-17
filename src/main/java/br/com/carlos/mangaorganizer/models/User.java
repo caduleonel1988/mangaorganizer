@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
@@ -34,6 +35,7 @@ public class User implements Serializable, UserDetails {
 	private String password;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinTable(name = "user_role")
 	private List<Role> roles = new ArrayList<>();
 
 	// metodos get e set para email, name, password, roles e mangas.

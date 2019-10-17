@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -29,6 +30,7 @@ public class UserAccount implements Serializable {
 	private Integer id;
 
 	@OneToOne(cascade = {CascadeType.ALL ,CascadeType.REMOVE})
+	@JoinColumn(name = "user_email")
 	private User user;
 
 	public UserAccount(User user) {
@@ -38,6 +40,7 @@ public class UserAccount implements Serializable {
 	public UserAccount() {}
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL, CascadeType.REMOVE })
+	@JoinColumn(name = "account_id")
 	private Set<UserManga> mangas = new LinkedHashSet<>();
 
 	public User getUser() {

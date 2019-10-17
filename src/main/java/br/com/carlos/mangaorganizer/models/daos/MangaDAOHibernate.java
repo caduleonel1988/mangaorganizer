@@ -29,8 +29,8 @@ public class MangaDAOHibernate implements MangaDAO {
 
 	@Override
 	public void remove(Integer id) {
-		// TODO Auto-generated method stub
-		
+		Manga manga = manager.find(Manga.class, id);
+		manager.remove(manga);
 	}
 
 	@Override
