@@ -2,7 +2,6 @@ package br.com.carlos.mangaorganizer.models.daos;
 
 import java.util.List;
 
-import br.com.carlos.mangaorganizer.models.Manga;
 import br.com.carlos.mangaorganizer.models.Role;
 
 public interface RoleDAO {
