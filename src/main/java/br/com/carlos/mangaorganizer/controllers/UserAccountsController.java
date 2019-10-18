@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.carlos.mangaorganizer.models.Manga;
 import br.com.carlos.mangaorganizer.models.User;
@@ -103,6 +104,7 @@ public class UserAccountsController {
 		return userManga;
 	}
 	
+	//TODO MELHORAR A ALTERAÇÃO DE USUARIOS, O REDIRECIONAMENTO AINDA ESTA MEIO PROCEDURAL
 	/**
 	 * Metodo para modificar a conta do usuario
 	 * @param user usuario a ser validado
@@ -111,13 +113,15 @@ public class UserAccountsController {
 	 */
 	@CacheEvict(value = "users", allEntries = true)
 	@RequestMapping(value="/modify", method = RequestMethod.POST)
-	public ModelAndView modifyAccount(@Valid User user, BindingResult result) {
-		ModelAndView modelAndView = new ModelAndView("redirect:/users");
+	public ModelAndView modifyAccount(@Valid User user, BindingResult result, RedirectAttributes redirectAttributes) {
+		ModelAndView modelAndView = new ModelAndView("redirect:/accounts/detail/{email}") ;
 		if (result.hasErrors()) {
 			return detail(user.getEmail(), user);
 		}
 		userDAO.modify(user);
-		
+		redirectAttributes.addFlashAttribute("message", "Usuário Modificado com Sucesso!");
+		modelAndView.addObject("email", user.getEmail());
+
 		return modelAndView;
 	}
 

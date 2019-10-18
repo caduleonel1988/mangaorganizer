@@ -42,13 +42,14 @@
 			    $.post("pagaConta", {'id' : id}, function() {
 			      alert("Conta paga com sucesso");
 			    });
-			  }
-			  
+			 }
+
 		</script>
 		
 	</jsp:attribute>	
 	
 	<jsp:body>
+		<h2 class="text-center mt-4 mb-5">${message}</h2>
 		<h2 class="text-center mt-4 mb-5">${pageTitle}</h2>
 		<div class="container my-4 col-md-8 offset-md-4">
 	
@@ -56,8 +57,8 @@
 			
 				<div class="form-row">
 					<div class="form-group col-md-4">				
-						<sf:label for="email" path="email" cssClass="h5"><fmt:message key="user.email"/></sf:label>
-						<sf:input path="email" cssClass="form-control" />
+						<sf:label for="email" path="email" cssClass="h5" ><fmt:message key="user.email"/></sf:label>
+						<sf:input path="email" cssClass="form-control" readonly="true"/>
 						<sf:errors cssClass="error" path="email" />
 					</div>
 					
