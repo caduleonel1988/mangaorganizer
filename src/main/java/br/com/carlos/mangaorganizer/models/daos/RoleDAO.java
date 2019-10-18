@@ -8,7 +8,7 @@ public interface RoleDAO {
 
 	void add(Role role);
 	//void remove(Integer id); 
-	List<Role> getAllRoles();
+	List<Role> getRoles();
 
 	/*
 	 * void modify(Role role);

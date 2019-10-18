@@ -32,7 +32,7 @@
 						
 						<div class="form-group col-md-2">
 							<sf:label for="status" path="status" cssClass="h5"><fmt:message key="manga.status"/></sf:label>
-							<sf:select path="status" cssClass="form-control" readonly="true" items="${mangaStatus }"/>	
+							<sf:input path="status" cssClass="form-control" readonly="true"/>	
 							<sf:errors cssClass="error" path="status"/>
 						</div>		
 					</div>	

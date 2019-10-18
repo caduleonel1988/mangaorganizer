@@ -24,7 +24,7 @@ public class RoleDAOHibernate implements RoleDAO {
 	}
 	
 	@Override
-	public List<Role> getAllRoles() {
+	public List<Role> getRoles() {
 		try {
 			return manager.createQuery("from Role", Role.class).getResultList();
 		} catch (Exception e) {

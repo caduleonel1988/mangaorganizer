@@ -44,7 +44,7 @@ public class UsersController {
 	@RequestMapping(value = "/form")
 	public ModelAndView form(User user) {
 		ModelAndView modelAndView = new ModelAndView("users/form");
-		modelAndView.addObject("roleList", roleDAO.getAllRoles());
+		modelAndView.addObject("roleList", roleDAO.getRoles());
 		
 		return modelAndView;
 	}

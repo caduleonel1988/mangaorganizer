@@ -1,7 +1,5 @@
 package br.com.carlos.mangaorganizer.models.daos;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -41,11 +39,4 @@ public class UserMangaDAOHibernate implements UserMangaDAO {
 		mangaToPersist.setNotes(userManga.getNotes());
 		manager.persist(mangaToPersist);
 	}
-
-	@Override
-	public List<UserManga> getAllUserMangas() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

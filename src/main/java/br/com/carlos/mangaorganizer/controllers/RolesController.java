@@ -38,7 +38,7 @@ public class RolesController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView modelAndView = new ModelAndView("roles/list");
-		modelAndView.addObject("roles", roleDAO.getAllRoles());
+		modelAndView.addObject("roles", roleDAO.getRoles());
 		return modelAndView;
 	}
 	

@@ -47,7 +47,9 @@
 						<th><fmt:message key="manga.publication"/></th>
 						<th><fmt:message key="manga.finalization"/></th>
 						<th><fmt:message key="manga.chapters"/></th>
-						<th><fmt:message key="manga.remove"/></th>
+						<security:authorize access="hasRole('ROLE_ADMIN')">
+							<th><fmt:message key="manga.remove"/></th>
+						</security:authorize>
 					</tr>
 				</thead>	
 		
@@ -58,7 +60,9 @@
 						<td class="text-center"><fmt:formatDate value="${manga.publicationDate.time}" pattern="dd-MM-yyyy"/></td>
 						<td class="text-center"><fmt:formatDate value="${manga.finalizationDate.time}" pattern="dd-MM-yyyy"/></td>
 						<td class="text-center">${manga.chapters}</td>
-		 				<td class="text-center text-lowercase"><a href="#" onclick="remove(${manga.id}, this)"><fmt:message key="manga.remove"/></a></td> 
+						<security:authorize access="hasRole('ROLE_ADMIN')">
+			 				<td class="text-center text-lowercase"><a href="#" onclick="remove(${manga.id}, this)"><fmt:message key="manga.remove"/></a></td>
+			 			</security:authorize>	 
 					</tr>
 				</c:forEach>
 			</table>

@@ -103,6 +103,12 @@ public class UserAccountsController {
 		return userManga;
 	}
 	
+	/**
+	 * Metodo para modificar a conta do usuario
+	 * @param user usuario a ser validado
+	 * @param result result binding com os possiveis erros de validação
+	 * @return modelAndView
+	 */
 	@CacheEvict(value = "users", allEntries = true)
 	@RequestMapping(value="/modify", method = RequestMethod.POST)
 	public ModelAndView modifyAccount(@Valid User user, BindingResult result) {

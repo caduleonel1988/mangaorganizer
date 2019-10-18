@@ -30,7 +30,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		encodingFilter.setForceEncoding(true);
 		http.addFilterBefore(encodingFilter, CsrfFilter.class);
 
-		http.authorizeRequests().antMatchers("/resources/**").permitAll()
+		http.authorizeRequests()
+				.antMatchers("/mangas/form/").hasRole("ADMIN")
+				.antMatchers("/mangas/form").hasRole("ADMIN")
+				.antMatchers("/users/").hasRole("ADMIN")
+				.antMatchers("/users").hasRole("ADMIN")
+				.antMatchers("/users/form/").hasRole("ADMIN")
+				.antMatchers("/users/form").hasRole("ADMIN")
+				.antMatchers("/roles/").hasRole("ADMIN")
+				.antMatchers("/roles").hasRole("ADMIN")
+				.antMatchers("/roles/form/").hasRole("ADMIN")
+				.antMatchers("/roles/form").hasRole("ADMIN")
+				.antMatchers("/resources/**").permitAll()
 				.anyRequest().authenticated()
 				.and().formLogin().loginPage("/login").permitAll()
 				.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
