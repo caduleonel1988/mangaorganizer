@@ -121,7 +121,7 @@ public class UserAccountsController {
 		userDAO.modify(user);
 		redirectAttributes.addFlashAttribute("message", "Usuário Modificado com Sucesso!");
 		modelAndView.addObject("email", user.getEmail());
-
+		
 		return modelAndView;
 	}
 
