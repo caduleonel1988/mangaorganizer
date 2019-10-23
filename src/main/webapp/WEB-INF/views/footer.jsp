@@ -1,4 +1,4 @@
-<footer id="sticky-footer" class="py-4 bg-dark text-white-50 fixed-bottom">
+<footer id="sticky-footer" class="py-3 bg-dark text-white-50 page-footer">
     <div class="container text-center">
       <small>Copyright &copy; Your Website</small>
     </div>
