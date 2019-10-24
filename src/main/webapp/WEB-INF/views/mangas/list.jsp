@@ -38,8 +38,8 @@
 	<jsp:body>
 		<div class="container my-4" >		
 			<h2>${message }</h2>
-			<h2 class="text-center my-4">${pageTitle}</h2>
-			<table class="table table-bordered table-hover">	
+			<h2 class="text-center my-5">${pageTitle}</h2>
+			<table class="table table-bordered table-hover mb-5">	
 				<thead class="thead-dark text-center">
 					<tr>
 						<th><fmt:message key="manga.title"/></th>
