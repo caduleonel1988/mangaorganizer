@@ -18,7 +18,7 @@
 <tags:pageTemplate title="">
 	
 	<jsp:body>
-		<h2 class="text-center mt-4 mb-5">${manga.title}</h2>
+		<h2 class="text-center my-5">${manga.title}</h2>
 		<div class="container my-4 col-md-8 offset-md-4">
 			
 			<c:if test="${!hasRole }">

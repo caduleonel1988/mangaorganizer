@@ -36,7 +36,7 @@
 	</jsp:attribute>
 
 	<jsp:body>
-		<div class="container my-4" >		
+		<div class="container my-4 col-md-12" >		
 			<h2>${message }</h2>
 			<h2 class="text-center my-5">${pageTitle}</h2>
 			<table class="table table-bordered table-hover mb-5">	

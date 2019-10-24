@@ -92,9 +92,9 @@
 			</sf:form>
 		</div>
 		
-		<div class="container my-4" >	
-			<h2 class="text-center my-4">${mangaList}</h2>
-			<table class="table table-bordered table-hover">
+		<div class="container my-4 col-md-12" >	
+			<h2 class="text-center my-5">${mangaList}</h2>
+			<table class="table table-bordered table-hover mb-5">
 				<thead class="thead-dark text-center">
 					<tr>
 						<th><fmt:message key="manga.title"/></th>
@@ -106,13 +106,13 @@
 				</thead>		
 				<c:forEach items="${mangas}" var="userManga">
 					<tr>
-						<td class="col-sm-2"><a	
+						<td class="col-sm-4"><a	
 								href="${s:mvcUrl('UMC#detail').arg(0, userManga.manga.title).arg(1, userManga.id).build()}">${userManga.manga.title}
 							</a>
 						</td>
-						<td class="text-center col-sm-2">${userManga.manga.status}</td>
+						<td class="text-center col-sm-1">${userManga.manga.status}</td>
 						<td class="col-sm-5">${userManga.notes}</td>
-						<td class="text-center col-sm-2">${userManga.lastChapter}</td>
+						<td class="text-center col-sm-1">${userManga.lastChapter}</td>
 						<td class="text-center text-lowercase col-sm-2"><a	href="#" onclick="remove(${userManga.id}, this)"><fmt:message key="manga.remove"/></a></td>
 					</tr>
 				</c:forEach> 

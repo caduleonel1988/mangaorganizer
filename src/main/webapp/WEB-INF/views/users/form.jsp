@@ -13,7 +13,7 @@
 
 <tags:pageTemplate title="${pageTitle}">
 	<jsp:body>
-		<h2 class="text-center mt-4 mb-5">${pageTitle}</h2>
+		<h2 class="text-center my-5">${pageTitle}</h2>
 		<div class="container my-4 col-md-8 offset-md-4">
 	
 			<sf:form modelAttribute="user" action="${s:mvcUrl('UC#add').build()}" method="post">

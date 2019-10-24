@@ -10,10 +10,10 @@
 <fmt:message key="user.list.page.title"  var="pageTitle"/>
 <tags:pageTemplate title="${pageTitle}">
 	<jsp:body>
-		<div class="container my-4" >
+		<div class="container my-4 col-md-12" >
 			<h3>${message}</h3>
-			<h2 class="text-center my-4">${pageTitle}</h2>
-			<table class="table table-bordered table-hover">
+			<h2 class="text-center my-5">${pageTitle}</h2>
+			<table class="table table-bordered table-hover ">
 				<thead class="thead-dark text-center">	
 					<tr>
 						<th><fmt:message key="user.email"/></th>
@@ -23,10 +23,10 @@
 				</thead>
 				<c:forEach items="${users}" var="user">
 					<tr>
-						<td><a
+						<td class="col-sm-5"><a
 							href="${s:mvcUrl('UAC#detail').arg(0,user.email).build()}">${user.email}</a></td>
-						<td>${user.name}</td>
-						<td class="text-center"><a
+						<td class="col-sm-5">${user.name}</td>
+						<td class="col-sm-2 text-center"><a
 							href="${s:mvcUrl('UC#remove').arg(0, user.email).build()}">remover</a></td>
 					</tr>
 				</c:forEach>

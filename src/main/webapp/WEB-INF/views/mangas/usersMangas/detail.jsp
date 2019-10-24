@@ -11,8 +11,8 @@
 <fmt:message key="manga.button.save"  var="buttonSave"/>
 
 <tags:pageTemplate title="${pageTitle }">
-	<div class="container my-4" >	
-		<h2 class="text-center my-4">${pageTitle} - ${userManga.manga.title}</h2>
+	<div class="container my-4 col-md-12" >	
+		<h2 class="text-center my-5">${pageTitle} - ${userManga.manga.title}</h2>
 	
 		<sf:form modelAttribute="userManga" action="${s:mvcUrl('UMC#modifyUserManga').arg(0, userManga.id).build() }"	method="post">
 				<!-- Imagem? -->
