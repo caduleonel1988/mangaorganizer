@@ -1,11 +1,14 @@
 package br.com.carlos.mangaorganizer.models.daos;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.graalvm.compiler.nodes.extended.UnsafeMemoryLoadNode;
 import org.springframework.stereotype.Repository;
 
 import br.com.carlos.mangaorganizer.models.Manga;
@@ -42,7 +45,9 @@ public class MangaDAOHibernate implements MangaDAO {
 
 	@Override
 	public List<Manga> getMangas() {
-		return manager.createQuery("from Manga", Manga.class).getResultList() ;
+		List<Manga> mangas = manager.createQuery("from Manga", Manga.class).getResultList();
+		mangas.sort(Comparator.comparing(Manga::getTitle));
+		return Collections.unmodifiableList(mangas);
 	}
 
 }
