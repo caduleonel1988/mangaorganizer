@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import org.graalvm.compiler.nodes.extended.UnsafeMemoryLoadNode;
 import org.springframework.stereotype.Repository;
 
 import br.com.carlos.mangaorganizer.models.Manga;
