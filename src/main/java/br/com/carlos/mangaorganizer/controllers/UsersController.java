@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.carlos.mangaorganizer.models.User;
-import br.com.carlos.mangaorganizer.models.daos.RoleDAO;
+import br.com.carlos.mangaorganizer.models.service.RoleService;
 import br.com.carlos.mangaorganizer.models.service.UserService;
 import br.com.carlos.mangaorganizer.validations.UserValidation;
 
@@ -32,7 +32,7 @@ public class UsersController {
 	private UserService userService;
 
 	@Autowired
-	private RoleDAO roleDAO;
+	private RoleService roleService;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -43,7 +43,7 @@ public class UsersController {
 	@RequestMapping(value = "/form")
 	public ModelAndView form(User user) {
 		ModelAndView modelAndView = new ModelAndView("users/form");
-		modelAndView.addObject("roleList", roleDAO.getRoles());
+		modelAndView.addObject("roleList", roleService.getRoles());
 		
 		return modelAndView;
 	}
