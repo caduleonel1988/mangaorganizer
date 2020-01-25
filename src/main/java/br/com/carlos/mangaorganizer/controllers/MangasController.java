@@ -22,7 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.carlos.mangaorganizer.models.Manga;
 import br.com.carlos.mangaorganizer.models.Status;
-import br.com.carlos.mangaorganizer.models.daos.MangaDAO;
+import br.com.carlos.mangaorganizer.models.service.MangaService;
 import br.com.carlos.mangaorganizer.validations.MangaValidation;
 
 @Controller
@@ -31,7 +31,7 @@ import br.com.carlos.mangaorganizer.validations.MangaValidation;
 public class MangasController {
 
 	@Autowired
-	private MangaDAO mangaDAO;
+	private MangaService mangaService;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -52,7 +52,7 @@ public class MangasController {
 		if (result.hasErrors()) {
 			return form(manga);
 		}
-		mangaDAO.add(manga);
+		mangaService.add(manga);
 		redirectAttributes.addFlashAttribute("message", "Manga Cadastrado Com Sucesso");
 
 		return new ModelAndView("redirect:/mangas");
@@ -62,7 +62,7 @@ public class MangasController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView modelAndView = new ModelAndView("mangas/list");
-		List<Manga> mangas = mangaDAO.getMangas();
+		List<Manga> mangas = mangaService.getMangas();
 		modelAndView.addObject("mangas", mangas);
 
 		return modelAndView;
@@ -71,7 +71,7 @@ public class MangasController {
 	@RequestMapping(value = "detail/{id}")
 	public ModelAndView detail(@PathVariable("id") Integer id) {
 		ModelAndView modelAndView = new ModelAndView("mangas/detail");
-		Manga manga = mangaDAO.find(id);
+		Manga manga = mangaService.find(id);
 		modelAndView.addObject("manga", manga);
 		modelAndView.addObject("mangaStatus", Status.values());
 		
@@ -85,7 +85,7 @@ public class MangasController {
 		if (result.hasErrors()) {
 			return detail(manga.getId());
 		}
-		mangaDAO.modify(manga);
+		mangaService.modify(manga);
 		
 		return modelAndView;
 	}
@@ -94,6 +94,6 @@ public class MangasController {
 	@ResponseBody
 	@RequestMapping(value = "/removeManga", method = RequestMethod.POST) 
 	public void remove(Integer id) {
-		mangaDAO.remove(id);
+		mangaService.remove(id);
 	}
 }
