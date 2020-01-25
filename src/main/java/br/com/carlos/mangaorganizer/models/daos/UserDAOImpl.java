@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,8 +15,7 @@ import br.com.carlos.mangaorganizer.models.UserAccount;
 import br.com.carlos.mangaorganizer.models.UserManga;
 
 @Repository
-@Transactional
-public class UserDAOHibernate implements UserDAO {
+public class UserDAOImpl implements UserDAO {
 
 	@PersistenceContext
 	private EntityManager manager;

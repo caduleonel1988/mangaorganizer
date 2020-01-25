@@ -2,15 +2,13 @@ package br.com.carlos.mangaorganizer.models.daos;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
 import br.com.carlos.mangaorganizer.models.UserManga;
 
-@Transactional
 @Repository
-public class UserMangaDAOHibernate implements UserMangaDAO {
+public class UserMangaDAOImpl implements UserMangaDAO {
 	
 	@PersistenceContext
 	private EntityManager manager;  

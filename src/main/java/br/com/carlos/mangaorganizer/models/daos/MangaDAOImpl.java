@@ -6,15 +6,14 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
 import br.com.carlos.mangaorganizer.models.Manga;
 
-@Transactional
+
 @Repository
-public class MangaDAOHibernate implements MangaDAO {
+public class MangaDAOImpl implements MangaDAO {
 	
 	@PersistenceContext
 	private EntityManager manager;  
