@@ -19,9 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.carlos.mangaorganizer.models.User;
-import br.com.carlos.mangaorganizer.models.UserAccount;
 import br.com.carlos.mangaorganizer.models.daos.RoleDAO;
-import br.com.carlos.mangaorganizer.models.daos.UserDAO;
+import br.com.carlos.mangaorganizer.models.service.UserService;
 import br.com.carlos.mangaorganizer.validations.UserValidation;
 
 @Controller
@@ -30,7 +29,7 @@ import br.com.carlos.mangaorganizer.validations.UserValidation;
 public class UsersController {
 
 	@Autowired
-	private UserDAO userDAO;
+	private UserService userService;
 
 	@Autowired
 	private RoleDAO roleDAO;
@@ -57,9 +56,8 @@ public class UsersController {
 				return form(user);
 			}
 		
-			UserAccount userAccount = new UserAccount(user);
-			user.setAccount(userAccount);
-			userDAO.add(user);
+			userService.createUserAccount(user);
+			userService.add(user);
 			redirectAttributes.addFlashAttribute("message", "Usuário Cadastrado com Sucesso!");
 		
 		return new ModelAndView("redirect:/users");
@@ -70,7 +68,7 @@ public class UsersController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView modelAndView = new ModelAndView("users/list");
-		List<User> users = userDAO.getUsers();
+		List<User> users = userService.getUsers();
 		modelAndView.addObject("users", users);
 		
 		return modelAndView;
@@ -80,7 +78,7 @@ public class UsersController {
 	@CacheEvict(value = "users", allEntries = true)
 	@RequestMapping(value = "/removeUser")
 	public String remove(String email) {
-		userDAO.remove(email);
+		userService.remove(email);
 		
 		return "redirect:/users";
 	}
@@ -92,6 +90,4 @@ public class UsersController {
 		return modelAndView;
 	}
 	
-	
-
 }

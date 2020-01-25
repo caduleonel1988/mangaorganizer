@@ -25,8 +25,8 @@ import br.com.carlos.mangaorganizer.models.User;
 import br.com.carlos.mangaorganizer.models.UserAccount;
 import br.com.carlos.mangaorganizer.models.UserManga;
 import br.com.carlos.mangaorganizer.models.daos.MangaDAO;
-import br.com.carlos.mangaorganizer.models.daos.UserDAO;
 import br.com.carlos.mangaorganizer.models.daos.UserMangaDAO;
+import br.com.carlos.mangaorganizer.models.service.UserService;
 import br.com.carlos.mangaorganizer.validations.UserValidation;
 
 @Transactional
@@ -36,7 +36,7 @@ import br.com.carlos.mangaorganizer.validations.UserValidation;
 public class UserAccountsController {
 	
 	@Autowired	
-	private UserDAO userDAO;
+	private UserService userService;
 
 	@Autowired
 	private MangaDAO mangaDAO;
@@ -59,7 +59,7 @@ public class UserAccountsController {
 	@RequestMapping(value = "/detail/{email}", method = RequestMethod.GET)
 	public ModelAndView detail(@PathVariable("email") String email, User user) {
 		ModelAndView modelAndView = new ModelAndView("users/accounts/detail");
-		user = userDAO.find(email);
+		user = userService.find(email);
 		modelAndView.addObject("user", user);
 		modelAndView.addObject("mangas", getUserMangas(user));
 
@@ -84,7 +84,7 @@ public class UserAccountsController {
 
 		user = user.getSessionUser();
 		UserAccount userAccount = user.getAccount();
-		userDAO.modifyMangaList(userAccount, userManga);
+		userService.modifyMangaList(userAccount, userManga);
 		
 		modelAndView.addObject("email", user.getEmail());
 		return modelAndView;
@@ -118,7 +118,7 @@ public class UserAccountsController {
 		if (result.hasErrors()) {
 			return detail(user.getEmail(), user);
 		}
-		userDAO.modify(user);
+		userService.modify(user);
 		redirectAttributes.addFlashAttribute("message", "Usuário Modificado com Sucesso!");
 		modelAndView.addObject("email", user.getEmail());
 		
