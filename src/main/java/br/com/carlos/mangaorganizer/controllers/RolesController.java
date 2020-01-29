@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.carlos.mangaorganizer.models.Role;
-import br.com.carlos.mangaorganizer.models.daos.RoleDAO;
+import br.com.carlos.mangaorganizer.models.service.RoleService;
 
 @Controller
 @Scope(value = WebApplicationContext.SCOPE_REQUEST)
@@ -18,7 +18,7 @@ import br.com.carlos.mangaorganizer.models.daos.RoleDAO;
 public class RolesController {
 
 	@Autowired
-	private RoleDAO roleDAO;
+	private RoleService roleService;
 
 	// Action Action para o Formulario Cadastro de Roles
 	@RequestMapping(value = "/form")
@@ -29,7 +29,7 @@ public class RolesController {
 	// Action para Adicionar Roles
 	@RequestMapping(method = RequestMethod.POST)
 	public String add(Role role, RedirectAttributes redirectAttributes) {
-		roleDAO.add(role);
+		roleService.add(role);
 		redirectAttributes.addFlashAttribute("message", "Role Cadastrada com Sucesso!");
 		return "redirect:/roles";
 	}
@@ -38,7 +38,7 @@ public class RolesController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView modelAndView = new ModelAndView("roles/list");
-		modelAndView.addObject("roles", roleDAO.getRoles());
+		modelAndView.addObject("roles", roleService.getRoles());
 		return modelAndView;
 	}
 	

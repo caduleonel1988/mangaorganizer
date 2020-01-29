@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.carlos.mangaorganizer.models.Role;
@@ -12,6 +13,7 @@ import br.com.carlos.mangaorganizer.models.daos.RoleDAO;
 @Service
 public class RoleServiceImpl implements RoleService {
 
+	@Autowired
 	private RoleDAO roleDAO;
 	
 	@Override
