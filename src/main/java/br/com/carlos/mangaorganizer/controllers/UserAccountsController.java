@@ -1,13 +1,9 @@
 package br.com.carlos.mangaorganizer.controllers;
 
-import java.util.Set;
-
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -20,16 +16,14 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.carlos.mangaorganizer.models.Manga;
 import br.com.carlos.mangaorganizer.models.User;
 import br.com.carlos.mangaorganizer.models.UserAccount;
 import br.com.carlos.mangaorganizer.models.UserManga;
-import br.com.carlos.mangaorganizer.models.daos.MangaDAO;
-import br.com.carlos.mangaorganizer.models.daos.UserMangaDAO;
+import br.com.carlos.mangaorganizer.models.service.UserAccountService;
+import br.com.carlos.mangaorganizer.models.service.UserMangaService;
 import br.com.carlos.mangaorganizer.models.service.UserService;
 import br.com.carlos.mangaorganizer.validations.UserValidation;
 
-@Transactional
 @Controller
 @Scope(value = WebApplicationContext.SCOPE_REQUEST)
 @RequestMapping(value = "/accounts")
@@ -39,10 +33,10 @@ public class UserAccountsController {
 	private UserService userService;
 
 	@Autowired
-	private MangaDAO mangaDAO;
+	private UserMangaService userMangaService;
 	
 	@Autowired
-	private UserMangaDAO userMangaDAO;
+	private UserAccountService userAccountService;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -61,49 +55,26 @@ public class UserAccountsController {
 		ModelAndView modelAndView = new ModelAndView("users/accounts/detail");
 		user = userService.find(email);
 		modelAndView.addObject("user", user);
-		modelAndView.addObject("mangas", getUserMangas(user));
+		modelAndView.addObject("mangas", userAccountService.getUserMangas(user));
 
 		return modelAndView;
-	}
-	
-	/**
-	 * Metodo auxiliar utilizado para trazer um Set de mangas do usuario
-	 * @param user
-	 * @return Set<UserMangas>
-	 */
-	@Cacheable(value = "userMangas")
-	private Set<UserManga> getUserMangas(User user) {
-		return user.getAccount().getMangas();
 	}
 	
 	@RequestMapping(value = "/manga/add", method = RequestMethod.POST)
 	public ModelAndView addManga(Integer mangaId, User user) {
 		ModelAndView modelAndView = new ModelAndView("redirect:/accounts/detail/{email}") ;
-		UserManga userManga = createUserManga(mangaId);
-		userMangaDAO.add(userManga);
-
+		UserManga userManga = userMangaService.createUserManga(mangaId);
+		UserAccount userAccount = userAccountService.getUserAccount(user);
 		user = user.getSessionUser();
-		UserAccount userAccount = user.getAccount();
+		
+		userMangaService.add(userManga);
+
 		userService.modifyMangaList(userAccount, userManga);
 		
 		modelAndView.addObject("email", user.getEmail());
 		return modelAndView;
-		
 	}
 
-	/**
-	 * Metodo para criar um manga do usuário, pois este manga de usuario tem alguns detalhes a mais como ultimo 
-	 * capitulo lido pelo usuario (setado manualmente pelo proprio usuario) e notas.
-	 * @param id User id
-	 * @return UserManga
-	 */
-	private UserManga createUserManga(Integer id) {
-		Manga manga = mangaDAO.find(id);
-		UserManga userManga = new UserManga(manga); 
-		
-		return userManga;
-	}
-	
 	//TODO MELHORAR A ALTERAÇÃO DE USUARIOS, O REDIRECIONAMENTO AINDA ESTA MEIO PROCEDURAL
 	/**
 	 * Metodo para modificar a conta do usuario
@@ -118,6 +89,7 @@ public class UserAccountsController {
 		if (result.hasErrors()) {
 			return detail(user.getEmail(), user);
 		}
+		
 		userService.modify(user);
 		redirectAttributes.addFlashAttribute("message", "Usuário Modificado com Sucesso!");
 		modelAndView.addObject("email", user.getEmail());
