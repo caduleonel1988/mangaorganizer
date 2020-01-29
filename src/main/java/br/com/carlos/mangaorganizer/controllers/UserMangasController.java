@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.carlos.mangaorganizer.models.User;
 import br.com.carlos.mangaorganizer.models.UserManga;
-import br.com.carlos.mangaorganizer.models.daos.UserMangaDAO;
+import br.com.carlos.mangaorganizer.models.service.UserMangaService;
 
 //TODO MELHORAR O CACHE POIS ELE FUNCIONA PARA EXIBIÇÃO, MAS ESTA MANTENDO O CACHE DESATUALIZADO NA HORA DA ALTERAÇÃO
 @Controller
@@ -21,12 +21,12 @@ import br.com.carlos.mangaorganizer.models.daos.UserMangaDAO;
 public class UserMangasController {
 	
 	@Autowired
-	UserMangaDAO userMangaDAO;
+	private UserMangaService userMangaService;
 	
 	@RequestMapping(value = "/detail/{title}/{id}")
 	public ModelAndView detail(@PathVariable("title") String title, @PathVariable("id") Integer id) {
 		ModelAndView modelAndView = new ModelAndView("/mangas/usersMangas/detail");
-		UserManga userManga = userMangaDAO.find(id);
+		UserManga userManga = userMangaService.find(id);
 		modelAndView.addObject("userManga", userManga);
 		
 		return modelAndView;
@@ -35,13 +35,13 @@ public class UserMangasController {
 	@ResponseBody
 	@RequestMapping(value = "/removeUserManga", method = RequestMethod.POST) 
 	public void remove(Integer id) {
-		userMangaDAO.remove(id);
+		userMangaService.remove(id);
 	}
 	
 	@RequestMapping(value = "/modify", method = RequestMethod.POST) 
 	public ModelAndView modifyUserManga(Integer id, UserManga userManga, User user) {
 		ModelAndView modelAndView = new ModelAndView("redirect:/accounts/detail/{email}");
-		userMangaDAO.modify(userManga);
+		userMangaService.modify(userManga);
 		String email = user.getSessionUser().getEmail();
 		
 		modelAndView.addObject("email", email);
